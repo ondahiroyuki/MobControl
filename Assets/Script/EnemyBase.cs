@@ -29,7 +29,7 @@ public class EnemyBase : MonoBehaviour
                 GameObject ob = Instantiate(enemy, pos, Quaternion.Euler(0.0f, 180.0f, 0.0f));
 
                 Rigidbody rb = ob.GetComponent<Rigidbody>();
-                rb.AddForce(transform.forward * -3.0f, ForceMode.Impulse);
+                rb.AddForce(transform.forward * -5.0f, ForceMode.Impulse);
             }
 
             if(frameCount > 30)
@@ -65,6 +65,12 @@ public class EnemyBase : MonoBehaviour
 
                 GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("Mob");
                 foreach (GameObject obj in objectsToDestroy)
+                {
+                    Destroy(obj, 0.5f);
+                }
+
+                GameObject[] destroyob = GameObject.FindGameObjectsWithTag("Enemy");
+                foreach (GameObject obj in destroyob)
                 {
                     Destroy(obj, 0.5f);
                 }

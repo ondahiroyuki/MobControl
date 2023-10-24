@@ -18,11 +18,24 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         ++frameCount;
-        if(frameCount > 60)
-        {
-            rb.velocity = (cannon.transform.position - transform.position).normalized * 1.0f;
-            rb.velocity = new Vector3(rb.velocity.x, 0.0f, rb.velocity.z) * 1.0f;
 
+        if(rb == null)
+        {
+            return;
+        }
+
+        if (frameCount > 60)
+        {
+            if ((cannon.transform.position - transform.position).magnitude < 3.0f)
+            {
+                rb.velocity = (cannon.transform.position - transform.position).normalized * 1.0f;
+                rb.velocity = new Vector3(rb.velocity.x, 0.0f, rb.velocity.z) * 1.0f;
+
+            }
+            else
+            {
+                rb.velocity = transform.forward * 1.0f;
+            }
         }
     }
 
@@ -30,8 +43,16 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Mob"))
         {
-            Renderer objectRenderer = GetComponentInChildren<Renderer>();
-            objectRenderer.material.color = color;
+            // すべての子オブジェクトを取得
+            Renderer[] childRenderers = GetComponentsInChildren<Renderer>();
+
+            // 各子オブジェクトのRendererコンポーネントの色を変更
+            foreach (Renderer renderer in childRenderers)
+            {
+                renderer.material.color = color;
+            }
+            GetComponent<CapsuleCollider>().enabled = false;
+            Destroy(GetComponent<Rigidbody>());
             Destroy(gameObject, 0.1f);
         }
     }

@@ -37,13 +37,16 @@ public class Increase : MonoBehaviour
                 for (int i = 1; i < inc; i++)
                 {
                     Vector3 pos = other.transform.position;
-                    pos.x += Random.Range(-0.5f, 0.5f);
-                    pos.z += Random.Range(-0.5f, 0.5f);
+                    pos.x += Random.Range(-0.2f, 0.2f);
+                    pos.z += Random.Range(-0.2f, 0.2f);
 
 
                     GameObject ob = Instantiate(other.gameObject, pos , Quaternion.identity);
-                    Mob obMob = ob.GetComponent<Mob>();
-                    obMob.ExistIncreaseName(gameObject.name);
+                    Mob mobn = ob.GetComponent<Mob>();
+                    mobn.ExistIncreaseName(gameObject.name);
+
+                    Mob mobo = other.GetComponent<Mob>();
+                    mobn.frameCount = mobo.frameCount;
 
                     Rigidbody rb = other.GetComponent<Rigidbody>();
                     Rigidbody rbn = ob.GetComponent<Rigidbody>();

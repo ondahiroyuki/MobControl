@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using UnityEngine;
 
 public class Cannon : MonoBehaviour
@@ -24,9 +25,8 @@ public class Cannon : MonoBehaviour
         }
         else if (Input.GetMouseButton(0))
         {
-            Vector3 move = Input.mousePosition - touchPos;
-            transform.position = new Vector3(initPos.x + move.x * sen, initPos.y, initPos.z); ;
-            
+            float moveX = Input.mousePosition.x - touchPos.x;
+            transform.position = initPos + moveX * transform.right * 0.02f;
             //à⁄ìÆêßå¿
             if(transform.position.x < -2.5f)
             {
@@ -39,12 +39,12 @@ public class Cannon : MonoBehaviour
 
             //Mobèoåª
             ++FrameCount;
-            if (FrameCount % 60 == 0)
+            if (FrameCount % 40 == 0)
             {
                 GameObject ob = Instantiate(Mob, transform.position + transform.forward * 0.5f, Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
                 Rigidbody rb = ob.GetComponent<Rigidbody>();
-                rb.AddForce(transform.forward * 3.0f, ForceMode.Impulse);
+                rb.AddForce(transform.forward * 5.0f, ForceMode.Impulse);
             }
 
 

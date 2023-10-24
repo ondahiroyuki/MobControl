@@ -5,8 +5,8 @@ public class Mob : MonoBehaviour
 {
     public Color color = Color.white;
 
-    private int frameCount = 0;
-    private GameObject Goal = null;
+    public int frameCount = 0;
+    private GameObject goal = null;
     private List<string> increaseNames = new List<string>();
     private Rigidbody rb = null;
 
@@ -20,20 +20,39 @@ public class Mob : MonoBehaviour
     void Update()
     {
         ++frameCount;
-        if(frameCount > 60)
+
+        if (rb == null)
         {
-            rb.velocity = new Vector3(transform.forward.x, 0.0f, transform.forward.z) * 1.0f;
+            return;
         }
 
-        if(Goal == null)
+        if (goal == null)
         {
-            Goal = GameObject.FindGameObjectWithTag("EnemyBase");
+            goal = GameObject.FindGameObjectWithTag("EnemyBase");
+            if(goal == null )
+            {
+                return;
+            }
         }
-        if(frameCount > 300)
+
+
+
+        if (frameCount > 60)
         {
-            rb.velocity = (Goal.transform.position - transform.position).normalized * 1.0f;
-            rb.velocity = new Vector3(rb.velocity.x, 0.0f, rb.velocity.z) * 1.0f;
+            if ((goal.transform.position - transform.position).magnitude < 3.0f)
+            {
+                rb.velocity = (goal.transform.position - transform.position).normalized * 1.0f;
+                rb.velocity = new Vector3(rb.velocity.x, 0.0f, rb.velocity.z) * 1.0f;
+
+            }
+            else
+            {
+                rb.velocity = transform.forward * 1.0f;
+                //rb.velocity = new Vector3(transform.forward.x, 0.0f, transform.forward.z) * 1.0f;
+
+            }
         }
+
     }
 
     public bool ExistIncreaseName(string name)
@@ -53,8 +72,16 @@ public class Mob : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("EnemyBase") || collision.gameObject.CompareTag("Enemy"))
         {
-            Renderer objectRenderer = GetComponentInChildren<Renderer>();
-            objectRenderer.material.color = color;
+            // すべての子オブジェクトを取得
+            Renderer[] childRenderers = GetComponentsInChildren<Renderer>();
+
+            // 各子オブジェクトのRendererコンポーネントの色を変更
+            foreach (Renderer renderer in childRenderers)
+            {
+                renderer.material.color = color;
+            }
+            GetComponent<CapsuleCollider>().enabled = false;
+            Destroy(GetComponent<Rigidbody>());
             Destroy(gameObject, 0.1f);
         }
     }
