@@ -8,6 +8,9 @@ TagManager:
   - Mob
   - EnemyBase
   - Enemy
+  - Increase
+  - StageOb
+  - Syogai
   layers:
   - Default
   - TransparentFX

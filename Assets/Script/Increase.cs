@@ -3,8 +3,17 @@ using UnityEngine;
 
 public class Increase : MonoBehaviour
 {
+    public bool isActive { get; set; }
+
     private TextMesh textmesh;
     private int inc = 1;
+
+    public bool isMove = false;
+    public float radius = 5.0f;         // ‰~‚Ì”¼Œa
+    public float moveDuration = 3.0f;  // 1ü‚·‚é‚Ì‚É‚©‚©‚éŠÔ
+    private Vector3 center;
+    public float angle = 0.0f;
+    private float angularSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,12 +23,28 @@ public class Increase : MonoBehaviour
         textnum = textnum.Substring(1);
         int.TryParse(textnum, out inc);
 
+        center = transform.position;
+        angularSpeed = 360.0f / moveDuration;  // Šp‘¬“x (360“x / 1üŠÔ)
     }
 
-    // Update is called once per frame
-    void Update()
+        // Update is called once per frame
+        void Update()
     {
-        
+        if (!isActive)
+        {
+            return;
+        }
+
+
+        if (isMove)
+        {
+            // Šp“x‚ğXV
+            angle += angularSpeed * Time.deltaTime;
+
+            // V‚µ‚¢ˆÊ’u‚ğŒvZ
+            Vector3 newPosition = transform.right *  Mathf.Cos(angle * Mathf.Deg2Rad) * radius + center;
+            transform.position = newPosition;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,8 +62,8 @@ public class Increase : MonoBehaviour
                 for (int i = 1; i < inc; i++)
                 {
                     Vector3 pos = other.transform.position;
-                    pos.x += Random.Range(-0.2f, 0.2f);
-                    pos.z += Random.Range(-0.2f, 0.2f);
+                    pos.x += Random.Range(-0.4f, 0.4f);
+                    pos.z += Random.Range(-0.4f, 0.4f);
 
 
                     GameObject ob = Instantiate(other.gameObject, pos , Quaternion.identity);

@@ -42,7 +42,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3592012383007828476}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: e58d702057032604aad1e477aabd39a3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
   frameCount: 0
+  HP: 1
 --- !u!1001 &3635552827307151824
 PrefabInstance:
   m_ObjectHideFlags: 0

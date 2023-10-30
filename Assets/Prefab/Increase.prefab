@@ -345,7 +345,7 @@ GameObject:
   - component: {fileID: 1559543141306475827}
   m_Layer: 0
   m_Name: Increase
-  m_TagString: Untagged
+  m_TagString: Increase
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -378,7 +378,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7433488671494463401}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: e58d702057032604aad1e477aabd39a3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -404,6 +404,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c575bc01ffd17d4db90831111c28577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMove: 0
+  radius: 2
+  moveDuration: 10
+  angle: 0
 --- !u!1 &7978310767998467083
 GameObject:
   m_ObjectHideFlags: 0
