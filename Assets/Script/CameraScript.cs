@@ -4,7 +4,7 @@ public class CameraScript : MonoBehaviour
 {
     private Transform originalCameraTransform;
     float shakeDuration = 0.0f;
-    float shakeAmount = 0.5f;
+    float shakeAmount = 0.3f;
     float decreaseFactor = 1.0f;
 
     public Vector3 originalPos;
@@ -42,7 +42,7 @@ public class CameraScript : MonoBehaviour
         else
         {
             shakeDuration = 0f;
-            originalCameraTransform.localPosition = originalPos;
+            originalCameraTransform.position = originalPos;
         }
     }
 
